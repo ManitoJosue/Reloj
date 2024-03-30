@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #000; /* Fondo negro */
+    }
+
+    
+    #clockContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      border-radius: 10px; /* Bordes redondeados */
+      animation: changeColor 5s infinite alternate; /* Animación de cambio de color */
+      margin: 10px;
+    }
+
+    #clock {
+      font-size: 4em;
+      color: #75b7e6; /* Texto azul marino claro */
+      text-shadow: 0 0 15px #0077cc, 0 0 30px #0077cc, 0 0 45px #0077cc; /* Sombra del texto */
+    }
+
+    #dateContainer {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-align: right;
+    }
+
+    #date {
+      font-size: 1.5em;
+      color: #0077cc; /* Texto azul marino claro */
+      text-shadow: 0 0 10px #0077cc, 0 0 20px #0077cc, 0 0 30px #0077cc; /* Sombra del texto */
+    }
+
+    #calendarContainer {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+
+    #calendar {
+      font-size: 2em;
+      color: #0077cc; /* Texto azul marino claro */
+      text-shadow: 0 0 10px #0077cc, 0 0 20px #0077cc, 0 0 30px #0077cc; /* Sombra del texto */
+      position: relative;
+      display: inline-block;
+    }
+
+    .calendar-icon {
+      position: relative;
+      width: 1em;
+      height: 1em;
+      background-color: transparent;
+      border: 2px solid #0077cc; /* Color del borde */
+      border-radius: 5px; /* Bordes redondeados */
+      margin-right: 5px;
+    }
+
+    .dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 5px;
+      height: 5px;
+      background-color: #ff0; /* Color del punto */
+      border-radius: 50%; /* Hacerlo circular */
+    }
+
+    @keyframes changeColor {
+      0% {
+        border: 2px solid #0f0; /* Verde neon */
+      }
+      25% {
+        border: 2px solid #00f; /* Azul neon */
+      }
+      50% {
+        border: 2px solid #f00; /* Rojo neon */
+      }
+      75% {
+        border: 2px solid #ff0; /* Amarillo neon */
+      }
+      100% {
+        border: 2px solid #0f0; /* Volver al verde neon */
+      }
+    }
+  </style>
+  <title>Reloj Digital Neon</title>
+</head>
+<body>
+  <div id="wolfContainer">
+    <div id="wolf"></div>
+  </div>
+
+  <div id="clockContainer">
+    <div id="clock"></div>
+  </div>
+
+  <div id="dateContainer">
+    <div id="date"></div>
+  </div>
+
+  <div id="calendarContainer">
+    <div id="calendar" class="calendar-icon">
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <script>
+    function actualizarReloj() {
+      const reloj = document.getElementById('clock');
+      const date = document.getElementById('date');
+      const calendar = document.getElementById('calendar');
+      const ahora = new Date();
+
+      const horas = ahora.getHours().toString().padStart(2, '0');
+      const minutos = ahora.getMinutes().toString().padStart(2, '0');
+      const segundos = ahora.getSeconds().toString().padStart(2, '0');
+      const fecha = ahora.toLocaleDateString('es-ES');
+      const mes = ahora.toLocaleString('es-ES', { month: 'long' });
+      const dia = ahora.getDate();
+
+      const horaCompleta = `${horas}:${minutos}:${segundos}`;
+
+      reloj.textContent = horaCompleta;
+      date.textContent = fecha;
+
+      calendar.innerHTML = `<div class="dot"></div>`;
+    }
+
+    // Actualizar cada segundo
+    setInterval(actualizarReloj, 1000);
+
+    // Actualizar al cargar la página
+    window.addEventListener('load', actualizarReloj);
+  </script>
+</body>
+</html>
